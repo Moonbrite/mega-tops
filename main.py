@@ -1,6 +1,7 @@
 from controllers.table_controller import Table_controller
 from controllers.commande_controller import CommandeController
 from controllers.plat_controller import PlatController
+from controllers.cuisine_controller import CuisineController
 from database.db import connect_db
 from database.seeds import creer_tables, inserer_data
 
@@ -49,6 +50,9 @@ def switch_action(action, connexion):
 
             except ValueError:
                 print("Entrée invalide. Veuillez réessayer.")
+        case "3":
+            cuisine_controller = CuisineController()
+            cuisine_controller.showOrdersStatus(connexion)
 
 
 def main():
