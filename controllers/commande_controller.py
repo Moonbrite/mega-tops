@@ -19,8 +19,10 @@ class CommandeController:
             )
             self.connexion.commit()
             print("Commande créée avec succès.")
+            return cursor.lastrowid  
         except Exception as e:
             print(f"Erreur lors de la création de la commande : {e}")
+            return None
 
     def ajouter_plat_a_commande(self, commande_id, plat_id, quantite):
         try:
@@ -33,4 +35,3 @@ class CommandeController:
             print(f"Plat ajouté.")
         except Exception as e:
             print(f"Erreur lors de l'ajout du plat à la commande : {e}")
-
