@@ -1,6 +1,7 @@
 from controllers.table_controller import Table_controller
 from controllers.commande_controller import CommandeController
 from controllers.plat_controller import PlatController
+from controllers.facture_controller import FactureController
 from database.db import connect_db
 from database.seeds import creer_tables, inserer_data
 
@@ -20,6 +21,7 @@ def switch_action(action, connexion):
         case "2":
             commande_controller = CommandeController()
             plat_controller = PlatController()
+            facture_controller = FactureController()
             table_controller = Table_controller()
             try:
                 table_controller.get_all_table(connexion)
@@ -28,9 +30,12 @@ def switch_action(action, connexion):
                 if commande_id:
                     plats = plat_controller.get_all_plats()
                     plat_map = {index + 1: plat for index, plat in enumerate(plats)}
-                    
+
                     while True:
                         print("\nVeuillez choisir un plat :")
+                        for index, plat in plat_map.items():
+                            print(f"{index}. {plat[1]} (Prix: {plat[2]} EUR)")
+
                         try:
                             choix = int(input("\nEntrez le numéro du plat souhaité : "))
                             if choix in plat_map:
@@ -43,9 +48,14 @@ def switch_action(action, connexion):
                         except ValueError:
                             print("Veuillez entrer un numéro valide.")
                             continue
+
                         ajouter_autre = input("Voulez-vous ajouter un autre plat ? (oui/non) : ").strip().lower()
                         if ajouter_autre != "oui":
-                            print("Commande envoyé en preparation !")
+                            cursor = connexion.cursor()
+                            cursor.execute("UPDATE commande SET statut = 'en preparation' WHERE id = %s;", (commande_id,))
+                            connexion.commit()
+                            montant_total = facture_controller.montant_total(commande_id, connexion)
+                            print(f"Commande envoyée en cuisine !\nMontant total : {montant_total} €")
                             break
                 else:
                     print("Erreur lors de la création de la commande.")
