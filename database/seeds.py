@@ -18,7 +18,7 @@ def creer_tables(connexion):
         CREATE TABLE IF NOT EXISTS Commande (
             id INT AUTO_INCREMENT PRIMARY KEY,
             table_id INT NOT NULL,
-            statut BOOLEAN DEFAULT FALSE,
+            statut VARCHAR(100) ,
             montant DOUBLE DEFAULT 0.0,
             paye BOOLEAN DEFAULT FALSE,
             date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -140,9 +140,9 @@ def inserer_data(connexion):
         # 5. Insérer des commandes
         cursor.execute("""
         INSERT IGNORE INTO Commande (table_id, statut, montant, paye) VALUES
-        (1, TRUE, 25.00, FALSE),
-        (2, FALSE, 18.50, FALSE),
-        (3, TRUE, 15.00, TRUE);
+        (1,'preparation', 25.00, FALSE),
+        (2,'preparation', 18.50, FALSE),
+        (3,'preparation', 15.00, TRUE);
         """)
 
         # Récupérer les IDs des commandes insérées

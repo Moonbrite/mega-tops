@@ -12,7 +12,7 @@ class FactureController:
         for result in results:
             cursor.execute("SELECT * FROM plat WHERE id = %s;", (result[2],))
             resu = cursor.fetchone()
-            prix_total += resu[3]
+            prix_total += resu[3] * result[3]
             print(resu)
         print(f"Prix Total de la commande :{prix_total} € \n")
         print("==========================")
@@ -26,7 +26,7 @@ class FactureController:
         for result in results:
             cursor.execute("SELECT * FROM plat WHERE id = %s;", (result[2],))
             resu = cursor.fetchone()
-            prix_total += resu[3]
+            prix_total += resu[3] * result[3]
 
         return prix_total
     
