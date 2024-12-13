@@ -47,9 +47,10 @@ def switch_action(action, connexion):
 
                         ajouter_autre = input("Voulez-vous ajouter un autre plat ? (oui/non) : ").strip().lower()
                         if ajouter_autre != "oui":
+                            statut_commande = "en preparation"
                             montant_total = facture_controller.montant_total(commande_id, connexion)
                             commande_controller.mettre_a_jour_montant(commande_id, montant_total)
-                            commande_controller.mettre_a_jour_statut(commande_id, "en preparation")
+                            commande_controller.mettre_a_jour_statut(commande_id, statut_commande)
                             print(f"Commande envoyée en cuisine !\nMontant total : {montant_total} €")
                             break
                 else:
