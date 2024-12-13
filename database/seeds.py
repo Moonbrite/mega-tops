@@ -21,6 +21,7 @@ def creer_tables(connexion):
             statut BOOLEAN DEFAULT FALSE,
             montant DOUBLE DEFAULT 0.0,
             paye BOOLEAN DEFAULT FALSE,
+            date DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (table_id) REFERENCES TableResto(id)
         );
         """)
