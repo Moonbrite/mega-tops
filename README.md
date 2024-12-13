@@ -20,7 +20,7 @@
 <p><strong>3. Calcul automatique des factures</strong></p>
 <p>Le total est calculé automatiquement avec taxes et remises éventuelles.</p>
 <p><strong>4. Gestion des stocks</strong></p>
-<p>Les ingrédients sont d´écrémentés en fonction des plats commandés.</p>
+<p>Les ingrédients sont décrémentés en fonction des plats commandés.</p>
 <p><strong>5. Rapports journaliers</strong></p>
 <p>Génère un résumé des ventes quotidiennes.</p>
 
