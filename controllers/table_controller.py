@@ -26,7 +26,7 @@ class Table_controller:
             cursor.execute("UPDATE TableResto SET est_occupée = TRUE WHERE numero = %s;", (num_table,))
             connexion.commit()
             print(f"La table numéro {num_table} est maintenant occupée.")
-
+            return num_table
         except Exception as e:
             print(f"Erreur lors de la mise à jour de la table : {e}")
 
