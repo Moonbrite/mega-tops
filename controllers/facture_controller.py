@@ -29,3 +29,4 @@ class FactureController:
             prix_total += resu[3] * result[3]
 
         return prix_total
+    
