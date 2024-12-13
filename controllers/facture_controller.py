@@ -17,6 +17,7 @@ class FactureController:
         print(f"Prix Total de la commande :{prix_total} € \n")
         print("==========================")
 
+
     def montant_total(self,commande_id,connexion):
 
         cursor = connexion.cursor()
