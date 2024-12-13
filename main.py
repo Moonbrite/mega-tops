@@ -22,8 +22,8 @@ def main():
     connexion = connect_db()
 
     if connexion:
-        #creer_tables(connexion)
-        #inserer_data(connexion)
+        creer_tables(connexion)
+        inserer_data(connexion)
 
         switch_action(afficher_menu_principal(),connexion)
         connexion.close()
