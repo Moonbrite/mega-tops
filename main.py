@@ -4,7 +4,6 @@ from controllers.plat_controller import PlatController
 from database.db import connect_db
 from database.seeds import creer_tables, inserer_data
 
-
 def afficher_menu_principal():
     print("\n--- Système de Gestion du Restaurant ---")
     print("1. Gérer les tables")
@@ -12,7 +11,6 @@ def afficher_menu_principal():
     print("3. Gérer le stock")
     print("4. Quitter")
     return input("Choisissez une option : ")
-
 
 def switch_action(action, connexion):
     match action:
@@ -30,26 +28,29 @@ def switch_action(action, connexion):
                 if commande_id:
                     plats = plat_controller.get_all_plats()
                     plat_map = {index + 1: plat for index, plat in enumerate(plats)}
-                    print("\nVeuillez choisir un plat :")
+                    
                     while True:
+                        print("\nVeuillez choisir un plat :")
                         try:
                             choix = int(input("\nEntrez le numéro du plat souhaité : "))
                             if choix in plat_map:
                                 plat_id = plat_map[choix][0]
-                                break
+                                quantite = int(input("Entrez la quantité : "))
+                                commande_controller.ajouter_plat_a_commande(commande_id, plat_id, quantite)
                             else:
                                 print("Choix invalide. Veuillez sélectionner un numéro dans la liste.")
+                                continue
                         except ValueError:
                             print("Veuillez entrer un numéro valide.")
-
-                    quantite = int(input("Entrez la quantité : "))
-                    commande_controller.ajouter_plat_a_commande(commande_id, plat_id, quantite)
+                            continue
+                        ajouter_autre = input("Voulez-vous ajouter un autre plat ? (oui/non) : ").strip().lower()
+                        if ajouter_autre != "oui":
+                            print("Commande envoyé en preparation !")
+                            break
                 else:
                     print("Erreur lors de la création de la commande.")
-
             except ValueError:
                 print("Entrée invalide. Veuillez réessayer.")
-
 
 def main():
     connexion = connect_db()
