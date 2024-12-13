@@ -7,8 +7,8 @@ def connect_db():
         cnx = mysql.connector.connect(
             host="127.0.0.1",
             user="root",
-            port=8889,
-            password="root",
+            password="",
+            port=3306,
             database="restaurant"
         )
 
