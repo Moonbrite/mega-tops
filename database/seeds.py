@@ -123,10 +123,10 @@ def inserer_data(connexion):
 
         # 2. Insérer des plats (uniquement des burgers)
         cursor.execute("""
-        INSERT IGNORE INTO Plat (nom, description) VALUES
-        ('Cheeseburger', 'Burger classique avec fromage, salade et tomates'),
-        ('Bacon Burger', 'Burger avec bacon, fromage, et sauce barbecue'),
-        ('Vegan Burger', 'Burger végétalien avec galette de pois chiches et légumes');
+        INSERT IGNORE INTO Plat (nom, description,prix) VALUES
+        ('Cheeseburger', 'Burger classique avec fromage, salade et tomates',12.99),
+        ('Bacon Burger', 'Burger avec bacon, fromage, et sauce barbecue',14.99),
+        ('Vegan Burger', 'Burger végétalien avec galette de pois chiches et légumes',15.99);
         """)
 
         # 3. Insérer des ingrédients
