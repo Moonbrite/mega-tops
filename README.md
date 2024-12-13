@@ -68,21 +68,21 @@
 
   <ul>1. Cloner le dépôt :</ul>
   <p>bash</p>
-  git clone https://github.com/nom-utilisateur/mega-tops-burger.git
+  <strong>git clone https://github.com/nom-utilisateur/mega-tops-burger.git</strong>
 <br>
 <br>
   <ul>2. Installer les dépendances :</ul>
-  pip install -r requirements.txt  
+  <strong>pip install -r requirements.txt  </strong>
 <br>  
 <br>
   <ul>3. Configurer la base de données : </ul>
     <li>Modifier le fichier config.py avec les informations de connexion pour MySQL.</li>
     <li>Initialiser la base de données : </li>
-    python init_db.py  
+    <strong>python init_db.py </strong> 
 <br>
 <br>
   <ul>4. Lancer l'application :</ul>
-  python app.py  
+  <strong>python app.py </strong> 
   
 
 <h2>7. Contributeurs</h2>
