@@ -1,3 +1,5 @@
+from database.db import connect_db
+from database.seeds import creer_tables, inserer_data
 
 
 def afficher_menu_principal():
@@ -9,9 +11,14 @@ def afficher_menu_principal():
     return input("Choisissez une option : ")
 
 def main():
-    # Initialisation des contrôleurs
-    afficher_menu_principal()
-    return
+    connexion = connect_db()
+
+    if connexion:
+        creer_tables(connexion)
+        inserer_data(connexion)
+        afficher_menu_principal()
+        connexion.close()
+
 
 
 if __name__ == "__main__":
