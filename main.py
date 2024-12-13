@@ -2,7 +2,6 @@ from controllers.table_controller import Table_controller
 from controllers.commande_controller import CommandeController
 from controllers.plat_controller import PlatController
 from controllers.facture_controller import FactureController
-from controllers.cuisine_controller import CuisineController
 from database.db import connect_db
 from database.seeds import creer_tables, inserer_data
 
@@ -31,12 +30,8 @@ def switch_action(action, connexion):
                 if commande_id:
                     plats = plat_controller.get_all_plats()
                     plat_map = {index + 1: plat for index, plat in enumerate(plats)}
-
                     while True:
                         print("\nVeuillez choisir un plat :")
-                        for index, plat in plat_map.items():
-                            print(f"{index}. {plat[1]} (Prix: {plat[2]} EUR)")
-
                         try:
                             choix = int(input("\nEntrez le numéro du plat souhaité : "))
                             if choix in plat_map:
@@ -52,10 +47,10 @@ def switch_action(action, connexion):
 
                         ajouter_autre = input("Voulez-vous ajouter un autre plat ? (oui/non) : ").strip().lower()
                         if ajouter_autre != "oui":
-                            cursor = connexion.cursor()
-                            cursor.execute("UPDATE commande SET statut = 'en preparation' WHERE id = %s;", (commande_id,))
-                            connexion.commit()
+                            statut_commande = "en preparation"
                             montant_total = facture_controller.montant_total(commande_id, connexion)
+                            commande_controller.mettre_a_jour_montant(commande_id, montant_total)
+                            commande_controller.mettre_a_jour_statut(commande_id, statut_commande)
                             print(f"Commande envoyée en cuisine !\nMontant total : {montant_total} €")
                             break
                 else:
@@ -67,8 +62,6 @@ def main():
     connexion = connect_db()
 
     if connexion:
-        # creer_tables(connexion)
-        # inserer_data(connexion)
         switch_action(afficher_menu_principal(), connexion)
         connexion.close()
 

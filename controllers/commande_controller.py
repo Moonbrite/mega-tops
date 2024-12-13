@@ -35,3 +35,29 @@ class CommandeController:
             print(f"Plat ajouté.")
         except Exception as e:
             print(f"Erreur lors de l'ajout du plat à la commande : {e}")
+
+    def mettre_a_jour_montant(self, commande_id, montant):
+        try:
+            cursor = self.connexion.cursor()
+            cursor.execute("""
+                UPDATE Commande
+                SET montant = %s
+                WHERE id = %s;
+            """, (montant, commande_id))
+            self.connexion.commit()
+            print(f"Montant total mis à jour : {montant} €")
+        except Exception as e:
+            print(f"Erreur lors de la mise à jour du montant : {e}")
+
+    def mettre_a_jour_statut(self, commande_id, statut):
+        try:
+            cursor = self.connexion.cursor()
+            cursor.execute("""
+                UPDATE Commande
+                SET statut = %s
+                WHERE id = %s;
+            """, (statut, commande_id))
+            self.connexion.commit()
+            print(f"Statut de la commande {commande_id} mis à jour : {statut}")
+        except Exception as e:
+            print(f"Erreur lors de la mise à jour du statut : {e}")
