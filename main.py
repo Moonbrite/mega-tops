@@ -31,9 +31,6 @@ def switch_action(action, connexion):
                     plats = plat_controller.get_all_plats()
                     plat_map = {index + 1: plat for index, plat in enumerate(plats)}
                     print("\nVeuillez choisir un plat :")
-                    for num, plat in plat_map.items():
-                        print(f"{num}. {plat[1]} - {plat[2]} - {plat[3]:.2f}€")
-
                     while True:
                         try:
                             choix = int(input("\nEntrez le numéro du plat souhaité : "))
