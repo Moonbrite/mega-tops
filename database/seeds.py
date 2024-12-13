@@ -72,19 +72,11 @@ def creer_tables(connexion):
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS Ingredient (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            nom VARCHAR(100) NOT NULL UNIQUE
+            nom VARCHAR(100) NOT NULL UNIQUE,
+            quantite INT DEFAULT 0
         );
         """)
 
-        # Table: Stock
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Stock (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            ingredient_id INT NOT NULL,
-            quantite INT DEFAULT 0 ,
-            FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id)
-        );
-        """)
 
         # Table: Plat_Ingredient
         cursor.execute("""
@@ -131,39 +123,18 @@ def inserer_data(connexion):
 
         # 3. Insérer des ingrédients
         cursor.execute("""
-        INSERT IGNORE INTO Ingredient (nom) VALUES
-        ('Pain à burger'), 
-        ('Steak haché'), 
-        ('Fromage'), 
-        ('Tomates'), 
-        ('Salade'), 
-        ('Bacon'), 
-        ('Sauce barbecue'), 
-        ('Galette de pois chiches'), 
-        ('Cornichons'), 
-        ('Oignons');
+        INSERT IGNORE INTO Ingredient (nom,quantite) VALUES
+        ('Pain à burger',50), 
+        ('Steak haché',40), 
+        ('Fromage',30), 
+        ('Tomates',25), 
+        ('Salade',20), 
+        ('Bacon',15), 
+        ('Sauce barbecue',10), 
+        ('Galette de pois chiches',10), 
+        ('Cornichons',15), 
+        ('Oignons',20);
         """)
-
-        # Récupérer les IDs des ingrédients insérés
-        cursor.execute("SELECT id, nom FROM Ingredient;")
-        ingredients = {nom: id for id, nom in cursor.fetchall()}
-
-        # 4. Insérer des stocks
-        cursor.execute("""
-        INSERT IGNORE INTO Stock (ingredient_id, quantite) VALUES
-        (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s), (%s, %s);
-        """, (
-            ingredients['Pain à burger'], 50,
-            ingredients['Steak haché'], 40,
-            ingredients['Fromage'], 30,
-            ingredients['Tomates'], 25,
-            ingredients['Salade'], 20,
-            ingredients['Bacon'], 15,
-            ingredients['Sauce barbecue'], 10,
-            ingredients['Galette de pois chiches'], 10,
-            ingredients['Cornichons'], 15,
-            ingredients['Oignons'], 20
-        ))
 
         # 5. Insérer des commandes
         cursor.execute("""
