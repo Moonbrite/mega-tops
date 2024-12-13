@@ -1,3 +1,4 @@
+from controllers.report_controller import ReportController
 from controllers.table_controller import Table_controller
 from controllers.commande_controller import CommandeController
 from controllers.plat_controller import PlatController
@@ -69,6 +70,8 @@ def main():
     if connexion:
         # creer_tables(connexion)
         # inserer_data(connexion)
+        report_controller = ReportController()
+        report_controller.get_elements_report(connexion)
         switch_action(afficher_menu_principal(), connexion)
         connexion.close()
 
